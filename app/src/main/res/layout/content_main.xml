@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                android:gravity="center"
-                android:text="-"
+                android:fontFamily="sans-serif-medium"
                 android:drawablePadding="6dp"
                 android:textAppearance="?textAppearanceBodyMedium"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +42,7 @@
                 android:textAppearance="?textAppearanceBodyMedium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="sans-serif-medium"
                 tools:text="Today 3 pm" />
 
             <ImageView
@@ -131,12 +132,14 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txt_today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Today"
+        android:textAppearance="?textAppearanceBodyMedium"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
@@ -144,14 +147,14 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/txt_today"
         tools:listitem="@layout/weather_list_item" />
 
 

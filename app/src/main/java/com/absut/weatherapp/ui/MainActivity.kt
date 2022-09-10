@@ -91,18 +91,19 @@ class MainActivity : AppCompatActivity() {
             binding.content.apply {
                 //  txtLocation.text = data.
                 image.setImageResource(data.weatherType.iconRes)
-                txtTime.text = "Today ${data.time.format(DateTimeFormatter.ofPattern("h a"))}"  //value -> Today 2 pm
+                txtTime.text = "Today, ${data.time.format(DateTimeFormatter.ofPattern("h a"))}"  //value -> Today, 2 pm
                 txtTemp.text = "${data.temperatureCelsius.roundToInt()}°" // value -> 25°
                 txtWeatherType.text = data.weatherType.weatherDesc
                 txtHumidity.text = "${data.humidity.roundToInt()} %"
                 txtPressure.text = "${data.pressure.roundToInt()} hpa"
                 txtWind.text = "${data.windSpeed.roundToInt()} km/h"
-
+                binding.content.txtToday.text = "Today | ${data.time.format(DateTimeFormatter.ofPattern("d MMMM"))}"
             }
         }
 
         weatherInfo?.weatherDataPerDay?.get(0)?.let { data ->
             weatherAdapter.submitList(data)
+
         }
     }
 
