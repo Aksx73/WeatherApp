@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_air_black_24dp.xml" value="0.155" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_place_black_24dp.xml" value="0.155" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.147" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_report_black_24dp.xml" value="0.155" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_water_black_24dp.xml" value="0.155" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/drawable/ic_water_drop_black_24dp.xml" value="0.155" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/layout/content_main.xml" value="0.33" />
+        <entry key="..\:/StudioProjects/WeatherApp/app/src/main/res/layout/weather_list_item.xml" value="0.365625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
