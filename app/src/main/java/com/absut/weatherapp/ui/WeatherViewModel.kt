@@ -55,7 +55,7 @@ class WeatherViewModel @Inject constructor(
     fun getLocationName(lat: Double, long: Double) {
         try {
             val addresses = geocoder.getFromLocation(lat, long, 1)
-            val obj: Address = addresses[0]
+            val obj: Address = addresses?.get(0)!!
             locality.value = obj.locality ?: "Unknown"
         } catch (e: IOException) {
             e.printStackTrace()
