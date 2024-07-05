@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -174,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                     text = "25",
                     style = MaterialTheme.typography.displayMedium,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    color = colorResource(id = android.R.attr.textColorPrimary),
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
                 )
                 Spacer(
                     modifier = Modifier.height(8.dp),
@@ -183,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                     text = "Clear Sky",
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = 20.sp,
-                    color = colorResource(id = android.R.attr.textColorPrimary),
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.height(24.dp))
@@ -231,7 +232,25 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun WeatherListItem(modifier: Modifier = Modifier) {
-
+        Column(modifier = modifier.padding(8.dp)) {
+            Text(
+                text = "24",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.size(6.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_rainythunder),
+                contentDescription = "weather icon",
+                Modifier.size(50.dp)
+            )
+            Spacer(modifier = Modifier.size(6.dp))
+            Text(
+                text = "3 pm",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 
     @Preview
@@ -248,6 +267,14 @@ class MainActivity : AppCompatActivity() {
             text = "Manchar",
             textStyle = MaterialTheme.typography.bodyMedium
         )
+    }
+
+    @Preview
+    @Composable
+    private fun WeatherListItemPreview() {
+        Surface{
+            WeatherListItem()
+        }
     }
 
 
