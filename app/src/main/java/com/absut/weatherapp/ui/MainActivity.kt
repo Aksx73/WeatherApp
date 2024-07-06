@@ -2,44 +2,41 @@ package com.absut.weatherapp.ui
 
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Air
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.weatherapp.R
@@ -137,8 +134,55 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
+        Surface(modifier = modifier.fillMaxSize()) {
+            Column {
+                WeatherCard()
 
+                Text(
+                    text = "Today | 6 July",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                /*LazyRow {
+                    items() {
+                        WeatherListItem()
+                    }
+                }*/
+            }
+        }
     }
+
+    @Composable
+    fun HomeScreen2(modifier: Modifier = Modifier) {
+        Scaffold(
+            floatingActionButton = {
+                FloatingActionButton(onClick = { /* Handle FAB click */ }) {
+                    Icon(imageVector = Icons.Filled.Air, contentDescription = "Refresh")
+                }
+            }
+        ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
+            Column(
+                modifier = Modifier.padding(paddingValues) // Apply padding to avoid overlap with FAB
+            ) {
+                WeatherCard()
+
+                Text(
+                    text = "Today | 6 July",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                /*LazyRow {
+                    items() {
+                        WeatherListItem()
+                    }
+                }*/
+            }
+        }
+    }
+
+
 
     @Composable
     fun WeatherCard(modifier: Modifier = Modifier) {
@@ -174,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                     text = "25",
                     style = MaterialTheme.typography.displayMedium,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    color = colorResource(id = android.R.attr.textColorPrimary),
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
                 )
                 Spacer(
                     modifier = Modifier.height(8.dp),
@@ -183,7 +227,7 @@ class MainActivity : AppCompatActivity() {
                     text = "Clear Sky",
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = 20.sp,
-                    color = colorResource(id = android.R.attr.textColorPrimary),
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.height(24.dp))
@@ -248,6 +292,12 @@ class MainActivity : AppCompatActivity() {
             text = "Manchar",
             textStyle = MaterialTheme.typography.bodyMedium
         )
+    }
+
+    @Preview
+    @Composable
+    private fun HomeScreenPreview() {
+        HomeScreen2()
     }
 
 
