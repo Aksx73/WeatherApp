@@ -138,7 +138,52 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
+        Surface(modifier = modifier.fillMaxSize()) {
+            Column {
+                WeatherCard()
 
+                Text(
+                    text = "Today | 6 July",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                /*LazyRow {
+                    items() {
+                        WeatherListItem()
+                    }
+                }*/
+            }
+        }
+    }
+
+    @Composable
+    fun HomeScreen2(modifier: Modifier = Modifier) {
+        Scaffold(
+            floatingActionButton = {
+                FloatingActionButton(onClick = { /* Handle FAB click */ }) {
+                    Icon(imageVector = Icons.Filled.Air, contentDescription = "Refresh")
+                }
+            }
+        ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
+            Column(
+                modifier = Modifier.padding(paddingValues) // Apply padding to avoid overlap with FAB
+            ) {
+                WeatherCard()
+
+                Text(
+                    text = "Today | 6 July",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                /*LazyRow {
+                    items() {
+                        WeatherListItem()
+                    }
+                }*/
+            }
+        }
     }
 
     @Composable
@@ -271,11 +316,15 @@ class MainActivity : AppCompatActivity() {
 
     @Preview
     @Composable
+    private fun HomeScreenPreview() {
+        HomeScreen2()
+    }
+
+    @Preview
+    @Composable
     private fun WeatherListItemPreview() {
         Surface{
             WeatherListItem()
         }
     }
-
-
 }
