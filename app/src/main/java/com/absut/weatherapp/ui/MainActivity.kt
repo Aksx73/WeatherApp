@@ -327,11 +327,13 @@ class MainActivity : AppCompatActivity() {
     @Preview
     @Composable
     private fun TextWithStartImagePreview() {
-        TextWithStartImage(
-            icon = R.drawable.ic_place_black_24dp,
-            text = "Manchar",
-            textStyle = MaterialTheme.typography.bodyMedium
-        )
+        Surface {
+            TextWithStartImage(
+                icon = R.drawable.ic_place_black_24dp,
+                text = "Manchar",
+                textStyle = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 
     @Preview
