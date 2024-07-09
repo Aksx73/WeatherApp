@@ -25,12 +25,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -165,14 +169,25 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun HomeScreen2(modifier: Modifier = Modifier) {
         Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding(),
             floatingActionButton = {
-                FloatingActionButton(onClick = { /* Handle FAB click */ }) {
-                    Icon(imageVector = Icons.Filled.Air, contentDescription = "Refresh")
-                }
-            }
+                ExtendedFloatingActionButton(
+                    onClick = {
+                    /*todo refresh*/
+                    },
+                    icon = { Icon(Icons.Filled.Air, null) },
+                    text = { Text(text = "Refresh") },
+                )
+            },
+            floatingActionButtonPosition = FabPosition.Center
         ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
             Column(
-                modifier = Modifier.padding(paddingValues) // Apply padding to avoid overlap with FAB
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues) // Apply padding to avoid overlap with FAB
             ) {
                 WeatherCard()
 
@@ -328,7 +343,7 @@ class MainActivity : AppCompatActivity() {
     @Preview
     @Composable
     private fun WeatherListItemPreview() {
-        Surface{
+        Surface {
             WeatherListItem()
         }
     }
