@@ -429,11 +429,20 @@ private fun HomeSContentPreview() {
     )
 }
 
-    @Preview
-    @Composable
-    private fun WeatherListItemPreview() {
-        Surface {
-            WeatherListItem()
-        }
+@Preview
+@Composable
+private fun WeatherListItemPreview() {
+    Surface {
+        WeatherListItem(
+            item =
+            WeatherData(
+                time = LocalDateTime.now(),
+                temperatureCelsius = 25.0,
+                pressure = 720.0,
+                windSpeed = 12.0,
+                humidity = 32.0,
+                weatherType = WeatherType.fromWeatherCode(0)
+            )
+        )
     }
 }
