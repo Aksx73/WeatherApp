@@ -373,11 +373,61 @@ private fun TextWithStartImagePreview() {
     }
 }
 
-    @Preview
-    @Composable
-    private fun HomeScreenPreview() {
-        HomeScreen2()
-    }
+@Preview
+@Composable
+private fun HomeSContentPreview() {
+    HomeContent(
+        weatherInfo =
+        WeatherInfo(
+            weatherDataPerDay = mapOf(
+                1 to listOf(
+                    WeatherData(
+                        time = LocalDateTime.now(),
+                        temperatureCelsius = 25.0,
+                        pressure = 720.0,
+                        windSpeed = 12.0,
+                        humidity = 32.0,
+                        weatherType = WeatherType.fromWeatherCode(0)
+                    ),
+                    WeatherData(
+                        time = LocalDateTime.now(),
+                        temperatureCelsius = 25.0,
+                        pressure = 720.0,
+                        windSpeed = 12.0,
+                        humidity = 32.0,
+                        weatherType = WeatherType.fromWeatherCode(2)
+                    )
+                ),
+                2 to listOf(
+                    WeatherData(
+                        time = LocalDateTime.now(),
+                        temperatureCelsius = 25.0,
+                        pressure = 720.0,
+                        windSpeed = 12.0,
+                        humidity = 32.0,
+                        weatherType = WeatherType.fromWeatherCode(0)
+                    ),
+                    WeatherData(
+                        time = LocalDateTime.now(),
+                        temperatureCelsius = 25.0,
+                        pressure = 720.0,
+                        windSpeed = 12.0,
+                        humidity = 32.0,
+                        weatherType = WeatherType.fromWeatherCode(2)
+                    )
+                )
+            ),
+            currentWeatherData =  WeatherData(
+                time = LocalDateTime.now(),
+                temperatureCelsius = 25.0,
+                pressure = 720.0,
+                windSpeed = 12.0,
+                humidity = 32.0,
+                weatherType = WeatherType.fromWeatherCode(0)
+            )
+        )
+    )
+}
 
     @Preview
     @Composable
