@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
@@ -159,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     fun HomeScreen(modifier: Modifier = Modifier) {
         Surface(modifier = modifier.fillMaxSize()) {
             Column {
-                WeatherCard()
+                WeatherCard(data = null)
 
                 Text(
                     text = "Today | 6 July",
@@ -199,7 +200,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-}
 
     @Composable
     fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo) {
@@ -322,136 +322,143 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-}
-
-@Composable
-fun TextWithStartImage(
-    @DrawableRes icon: Int,
-    text: String,
-    textStyle: TextStyle
-) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(6.dp)) // Add spacing if needed
-        Text(text = text, style = textStyle)
     }
-}
 
-@Composable
-fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
-    Column(modifier = modifier.padding(8.dp)) {
-        Text(
-            text = "24",
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Spacer(modifier = Modifier.size(6.dp))
-        Icon(
-            painter = painterResource(id = R.drawable.ic_rainythunder),
-            contentDescription = "weather icon",
-            Modifier.size(50.dp)
-        )
-        Spacer(modifier = Modifier.size(6.dp))
-        Text(
-            text = "3 pm",
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.bodyMedium
-        )
+    @Composable
+    fun TextWithStartImage(
+        @DrawableRes icon: Int,
+        text: String,
+        textStyle: TextStyle
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(6.dp)) // Add spacing if needed
+            Text(text = text, style = textStyle)
+        }
     }
-}
 
-@Preview
-@Composable
-private fun WeatherCardPreview() {
-    WeatherCard()
-}
-
-@Preview
-@Composable
-private fun TextWithStartImagePreview() {
-    Surface {
-        TextWithStartImage(
-            icon = R.drawable.ic_place_black_24dp,
-            text = "Manchar",
-            textStyle = MaterialTheme.typography.bodyMedium
-        )
+    @Composable
+    fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
+        Column(modifier = modifier.padding(8.dp)) {
+            Text(
+                text = "24",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.size(6.dp))
+            Image(
+                painter = painterResource(id = R.drawable.ic_sunnycloudy),
+                contentDescription = "weather icon",
+                Modifier.size(50.dp)
+            )
+            Spacer(modifier = Modifier.size(6.dp))
+            Text(
+                text = "3 pm",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
-}
 
-@Preview
-@Composable
-private fun HomeSContentPreview() {
-    HomeContent(
-        weatherInfo =
-        WeatherInfo(
-            weatherDataPerDay = mapOf(
-                1 to listOf(
-                    WeatherData(
-                        time = LocalDateTime.now(),
-                        temperatureCelsius = 25.0,
-                        pressure = 720.0,
-                        windSpeed = 12.0,
-                        humidity = 32.0,
-                        weatherType = WeatherType.fromWeatherCode(0)
-                    ),
-                    WeatherData(
-                        time = LocalDateTime.now(),
-                        temperatureCelsius = 25.0,
-                        pressure = 720.0,
-                        windSpeed = 12.0,
-                        humidity = 32.0,
-                        weatherType = WeatherType.fromWeatherCode(2)
+    @Preview
+    @Composable
+    private fun WeatherCardPreview() {
+        WeatherCard(data = null)
+    }
+
+    @Preview
+    @Composable
+    private fun TextWithStartImagePreview() {
+        Surface {
+            TextWithStartImage(
+                icon = R.drawable.ic_place_black_24dp,
+                text = "Manchar",
+                textStyle = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+
+    @Preview
+    @Composable
+    private fun HomeSContentPreview() {
+        HomeContent(
+            weatherInfo =
+            WeatherInfo(
+                weatherDataPerDay = mapOf(
+                    0 to listOf(
+                        WeatherData(
+                            time = LocalDateTime.now(),
+                            temperatureCelsius = 25.0,
+                            pressure = 720.0,
+                            windSpeed = 12.0,
+                            humidity = 32.0,
+                            weatherType = WeatherType.fromWeatherCode(0)
+                        ),
+                        WeatherData(
+                            time = LocalDateTime.now(),
+                            temperatureCelsius = 25.0,
+                            pressure = 720.0,
+                            windSpeed = 12.0,
+                            humidity = 32.0,
+                            weatherType = WeatherType.fromWeatherCode(2)
+                        ),
+                        WeatherData(
+                            time = LocalDateTime.now(),
+                            temperatureCelsius = 25.0,
+                            pressure = 720.0,
+                            windSpeed = 12.0,
+                            humidity = 32.0,
+                            weatherType = WeatherType.fromWeatherCode(2)
+                        ),
+                        WeatherData(
+                            time = LocalDateTime.now(),
+                            temperatureCelsius = 25.0,
+                            pressure = 720.0,
+                            windSpeed = 12.0,
+                            humidity = 32.0,
+                            weatherType = WeatherType.fromWeatherCode(2)
+                        ),
+                        WeatherData(
+                            time = LocalDateTime.now(),
+                            temperatureCelsius = 25.0,
+                            pressure = 720.0,
+                            windSpeed = 12.0,
+                            humidity = 32.0,
+                            weatherType = WeatherType.fromWeatherCode(2)
+                        )
                     )
                 ),
-                2 to listOf(
-                    WeatherData(
-                        time = LocalDateTime.now(),
-                        temperatureCelsius = 25.0,
-                        pressure = 720.0,
-                        windSpeed = 12.0,
-                        humidity = 32.0,
-                        weatherType = WeatherType.fromWeatherCode(0)
-                    ),
-                    WeatherData(
-                        time = LocalDateTime.now(),
-                        temperatureCelsius = 25.0,
-                        pressure = 720.0,
-                        windSpeed = 12.0,
-                        humidity = 32.0,
-                        weatherType = WeatherType.fromWeatherCode(2)
-                    )
+                currentWeatherData = WeatherData(
+                    time = LocalDateTime.now(),
+                    temperatureCelsius = 25.0,
+                    pressure = 720.0,
+                    windSpeed = 12.0,
+                    humidity = 32.0,
+                    weatherType = WeatherType.fromWeatherCode(99)
                 )
-            ),
-            currentWeatherData =  WeatherData(
-                time = LocalDateTime.now(),
-                temperatureCelsius = 25.0,
-                pressure = 720.0,
-                windSpeed = 12.0,
-                humidity = 32.0,
-                weatherType = WeatherType.fromWeatherCode(0)
             )
         )
-    )
-}
+    }
 
-@Preview
-@Composable
-private fun WeatherListItemPreview() {
-    Surface {
-        WeatherListItem(
-            item =
-            WeatherData(
-                time = LocalDateTime.now(),
-                temperatureCelsius = 25.0,
-                pressure = 720.0,
-                windSpeed = 12.0,
-                humidity = 32.0,
-                weatherType = WeatherType.fromWeatherCode(0)
+    @Preview
+    @Composable
+    private fun WeatherListItemPreview() {
+        Surface {
+            WeatherListItem(
+                item =
+                WeatherData(
+                    time = LocalDateTime.now(),
+                    temperatureCelsius = 25.0,
+                    pressure = 720.0,
+                    windSpeed = 12.0,
+                    humidity = 32.0,
+                    weatherType = WeatherType.fromWeatherCode(0)
+                )
             )
-        )
+        }
     }
 }
