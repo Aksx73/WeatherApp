@@ -201,117 +201,126 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@Composable
-fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo) {
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding(),
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    /*todo refresh*/
-                },
-                icon = { Icon(Icons.Filled.Air, null) },
-                text = { Text(text = "Refresh") },
-            )
-        },
-        floatingActionButtonPosition = FabPosition.Center
-    ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
-        Column(
+    @Composable
+    fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo) {
+        Scaffold(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues) // Apply padding to avoid overlap with FAB
-        ) {
-            WeatherCard()
-
-            Text(
-                text = "Today | 6 July",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.bodyMedium
-            )
-
-            LazyColumn(
-                // contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
+                .statusBarsPadding()
+                .navigationBarsPadding(),
+            floatingActionButton = {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        /*todo refresh*/
+                    },
+                    icon = { Icon(Icons.Filled.Air, null) },
+                    text = { Text(text = "Refresh") },
+                )
+            },
+            floatingActionButtonPosition = FabPosition.Center
+        ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues) // Apply padding to avoid overlap with FAB
             ) {
-                items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
-                    WeatherListItem(item = it)
+                WeatherCard(data = weatherInfo.currentWeatherData)
+
+                Text(
+                    text = "Today | ${
+                        weatherInfo.currentWeatherData?.time?.format(
+                            DateTimeFormatter.ofPattern(
+                                "d MMMM"
+                            )
+                        )
+                    }",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                LazyRow(
+                     contentPadding = PaddingValues(vertical = 12.dp, horizontal = 8.dp)
+                ) {
+                    items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
+                        WeatherListItem(item = it)
+                    }
                 }
             }
         }
     }
-}
 
-@Composable
-fun WeatherCard(modifier: Modifier = Modifier) {
-    Card(
-        onClick = { /*TODO*/ },
-        modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
+    @Composable
+    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?) {
+        Card(
+            onClick = { /*TODO*/ },
+            modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
             ) {
-                TextWithStartImage(
-                    icon = R.drawable.ic_place_black_24dp,
-                    text = "Manchar",
-                    textStyle = MaterialTheme.typography.bodyMedium
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextWithStartImage(
+                        icon = R.drawable.ic_place_black_24dp,
+                        text = "Manchar",
+                        textStyle = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "Today, ${data?.time?.format(DateTimeFormatter.ofPattern("h a"))}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Image(
+                    painter = painterResource(id = data?.weatherType?.iconRes!!),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(120.dp)
+                        .align(Alignment.CenterHorizontally)
                 )
-                Text(text = "Today 3pm", style = MaterialTheme.typography.bodyMedium)
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Image(
-                painter = painterResource(id = R.drawable.ic_rainshower),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(120.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "25",
-                style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                //color = colorResource(id = android.R.attr.textColorPrimary),
-            )
-            Spacer(
-                modifier = Modifier.height(8.dp),
-            )
-            Text(
-                text = "Clear Sky",
-                style = MaterialTheme.typography.titleMedium,
-                fontSize = 20.sp,
-                //color = colorResource(id = android.R.attr.textColorPrimary),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                TextWithStartImage(
-                    icon = R.drawable.ic_water_black_24dp,
-                    text = "720hpa",
-                    textStyle = MaterialTheme.typography.bodyMedium
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "${data?.temperatureCelsius?.roundToInt()}°",
+                    style = MaterialTheme.typography.displayMedium,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
                 )
-                TextWithStartImage(
-                    icon = R.drawable.ic_water_drop_black_24dp,
-                    text = "32%",
-                    textStyle = MaterialTheme.typography.bodyMedium
+                Spacer(
+                    modifier = Modifier.height(8.dp),
                 )
-                TextWithStartImage(
-                    icon = R.drawable.ic_air_black_24dp,
-                    text = "12 km/h",
-                    textStyle = MaterialTheme.typography.bodyMedium
+                Text(
+                    text = data?.weatherType?.weatherDesc ?: "Unknown",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontSize = 20.sp,
+                    //color = colorResource(id = android.R.attr.textColorPrimary),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
+                Spacer(modifier = Modifier.height(24.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    TextWithStartImage(
+                        icon = R.drawable.ic_water_black_24dp,
+                        text = "${data?.pressure?.roundToInt()} hpa",
+                        textStyle = MaterialTheme.typography.bodyMedium
+                    )
+                    TextWithStartImage(
+                        icon = R.drawable.ic_water_drop_black_24dp,
+                        text = "${data?.humidity?.roundToInt()} %",
+                        textStyle = MaterialTheme.typography.bodyMedium
+                    )
+                    TextWithStartImage(
+                        icon = R.drawable.ic_air_black_24dp,
+                        text = "${data?.windSpeed?.roundToInt()} km/h",
+                        textStyle = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
-    }
 
 }
 
