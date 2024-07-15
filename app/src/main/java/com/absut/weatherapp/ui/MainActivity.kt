@@ -158,8 +158,8 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
-
         val uiState by viewModel.uiState.observeAsState(WeatherUIState.Loading)
+        val locationName by viewModel.locality.observeAsState("Locating..")
 
         when (uiState) {
             is WeatherUIState.Error -> {
@@ -174,14 +174,14 @@ class MainActivity : AppCompatActivity() {
 
             is WeatherUIState.Success -> {
                 (uiState as WeatherUIState.Success).weatherInfo?.let {
-                    HomeContent(weatherInfo = it)
+                    HomeContent(weatherInfo = it, location = locationName)
                 }
             }
         }
     }
 
     @Composable
-    fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo) {
+    fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo, location: String?) {
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                     .fillMaxSize()
                     .padding(paddingValues) // Apply padding to avoid overlap with FAB
             ) {
-                WeatherCard(data = weatherInfo.currentWeatherData)
+                WeatherCard(data = weatherInfo.currentWeatherData, location = location)
 
                 Text(
                     text = "Today | ${
@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 LazyRow(
-                     contentPadding = PaddingValues(vertical = 12.dp, horizontal = 8.dp)
+                    contentPadding = PaddingValues(vertical = 12.dp, horizontal = 8.dp)
                 ) {
                     items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
                         WeatherListItem(item = it)
@@ -229,7 +229,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?) {
+    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?,location: String?) {
         Card(
             onClick = { /*TODO*/ },
             modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp)
@@ -244,7 +244,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     TextWithStartImage(
                         icon = R.drawable.ic_place_black_24dp,
-                        text = "Manchar",
+                        text = location ?: "Unknown",
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                     Text(
@@ -346,7 +346,7 @@ class MainActivity : AppCompatActivity() {
     @Preview
     @Composable
     private fun WeatherCardPreview() {
-        WeatherCard(data = null)
+        WeatherCard(data = null, location = null)
     }
 
     @Preview
