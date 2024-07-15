@@ -419,7 +419,8 @@ class MainActivity : AppCompatActivity() {
                     humidity = 32.0,
                     weatherType = WeatherType.fromWeatherCode(99)
                 )
-            )
+            ),
+            location = "Pune"
         )
     }
 
