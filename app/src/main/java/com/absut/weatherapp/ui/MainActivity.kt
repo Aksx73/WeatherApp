@@ -158,27 +158,6 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
-        Surface(modifier = modifier.fillMaxSize()) {
-            Column {
-                WeatherCard(data = null)
-
-                Text(
-                    text = "Today | 6 July",
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                /*LazyRow {
-                    items() {
-                        WeatherListItem()
-                    }
-                }*/
-            }
-        }
-    }
-
-    @Composable
-    fun HomeScreen2(modifier: Modifier = Modifier) {
 
         val uiState by viewModel.uiState.observeAsState(WeatherUIState.Loading)
 
@@ -345,19 +324,19 @@ class MainActivity : AppCompatActivity() {
     fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
         Column(modifier = modifier.padding(8.dp)) {
             Text(
-                text = "24",
+                text = "${item.temperatureCelsius.roundToInt()}°",
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.size(6.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_sunnycloudy),
+                painter = painterResource(id = item.weatherType.iconRes),
                 contentDescription = "weather icon",
                 Modifier.size(50.dp)
             )
             Spacer(modifier = Modifier.size(6.dp))
             Text(
-                text = "3 pm",
+                text = item.time.format(DateTimeFormatter.ofPattern("h a")),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -392,7 +371,7 @@ class MainActivity : AppCompatActivity() {
                     0 to listOf(
                         WeatherData(
                             time = LocalDateTime.now(),
-                            temperatureCelsius = 25.0,
+                            temperatureCelsius = 32.0,
                             pressure = 720.0,
                             windSpeed = 12.0,
                             humidity = 32.0,
@@ -404,31 +383,31 @@ class MainActivity : AppCompatActivity() {
                             pressure = 720.0,
                             windSpeed = 12.0,
                             humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(2)
+                            weatherType = WeatherType.fromWeatherCode(77)
                         ),
                         WeatherData(
                             time = LocalDateTime.now(),
-                            temperatureCelsius = 25.0,
+                            temperatureCelsius = 27.0,
                             pressure = 720.0,
                             windSpeed = 12.0,
                             humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(2)
+                            weatherType = WeatherType.fromWeatherCode(57)
                         ),
                         WeatherData(
                             time = LocalDateTime.now(),
-                            temperatureCelsius = 25.0,
+                            temperatureCelsius = 29.0,
                             pressure = 720.0,
                             windSpeed = 12.0,
                             humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(2)
+                            weatherType = WeatherType.fromWeatherCode(65)
                         ),
                         WeatherData(
                             time = LocalDateTime.now(),
-                            temperatureCelsius = 25.0,
+                            temperatureCelsius = 31.0,
                             pressure = 720.0,
                             windSpeed = 12.0,
                             humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(2)
+                            weatherType = WeatherType.fromWeatherCode(99)
                         )
                     )
                 ),
