@@ -1,6 +1,7 @@
 package com.absut.weatherapp.ui
 
 import android.Manifest
+import android.app.ActionBar
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +14,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -50,6 +54,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -71,18 +77,28 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    //private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<WeatherViewModel>()
-    private lateinit var weatherAdapter: WeatherAdapter
+    //private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        /*binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)*/
+
+        val composeView = ComposeView(this).apply {
+            setContent {
+                MaterialTheme {
+                    HomeScreen()
+                }
+            }
+        }
+
+        setContentView(composeView, ActionBar.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -96,13 +112,13 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        weatherAdapter = WeatherAdapter()
+       /* weatherAdapter = WeatherAdapter()
         binding.content.recyclerView.adapter = weatherAdapter
         binding.content.recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.content.recyclerView.setHasFixedSize(true)
+        binding.content.recyclerView.setHasFixedSize(true)*/
 
-        viewModel.uiState.observe(this) { state ->
+        /*viewModel.uiState.observe(this) { state ->
             binding.errorState.isVisible = state == WeatherUIState.Error()
             binding.progressCircular.isVisible = state == WeatherUIState.Loading
             binding.content.content.isVisible =
@@ -126,14 +142,14 @@ class MainActivity : AppCompatActivity() {
                     bind(state.weatherInfo)
                 }
             }
-        }
+        }*/
 
-        viewModel.locality.observe(this) {
+        /*viewModel.locality.observe(this) {
             binding.content.txtLocation.text = it
-        }
+        }*/
     }
 
-    private fun bind(weatherInfo: WeatherInfo?) {
+   /* private fun bind(weatherInfo: WeatherInfo?) {
         weatherInfo?.currentWeatherData?.let { data ->
             binding.content.apply {
                 //  txtLocation.text = data.
@@ -154,7 +170,7 @@ class MainActivity : AppCompatActivity() {
             weatherAdapter.submitList(data)
 
         }
-    }
+    }*/
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
@@ -190,7 +206,12 @@ class MainActivity : AppCompatActivity() {
             floatingActionButton = {
                 ExtendedFloatingActionButton(
                     onClick = {
-                        /*todo refresh*/
+                        permissionLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        )
                     },
                     icon = { Icon(Icons.Filled.Air, null) },
                     text = { Text(text = "Refresh") },
