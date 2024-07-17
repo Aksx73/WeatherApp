@@ -71,6 +71,7 @@ import com.absut.weatherapp.databinding.ActivityMainBinding
 import com.absut.weatherapp.domain.model.WeatherData
 import com.absut.weatherapp.domain.model.WeatherInfo
 import com.absut.weatherapp.domain.util.WeatherType
+import com.example.compose.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -92,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
         val composeView = ComposeView(this).apply {
             setContent {
-                MaterialTheme {
+                AppTheme {
                     HomeScreen()
                 }
             }
