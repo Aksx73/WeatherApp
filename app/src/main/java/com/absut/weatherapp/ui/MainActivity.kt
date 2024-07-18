@@ -405,67 +405,69 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Preview
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
     @Composable
     private fun HomeSContentPreview() {
-        HomeContent(
-            weatherInfo =
-            WeatherInfo(
-                weatherDataPerDay = mapOf(
-                    0 to listOf(
-                        WeatherData(
-                            time = LocalDateTime.now(),
-                            temperatureCelsius = 32.0,
-                            pressure = 720.0,
-                            windSpeed = 12.0,
-                            humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(0)
-                        ),
-                        WeatherData(
-                            time = LocalDateTime.now(),
-                            temperatureCelsius = 25.0,
-                            pressure = 720.0,
-                            windSpeed = 12.0,
-                            humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(77)
-                        ),
-                        WeatherData(
-                            time = LocalDateTime.now(),
-                            temperatureCelsius = 27.0,
-                            pressure = 720.0,
-                            windSpeed = 12.0,
-                            humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(57)
-                        ),
-                        WeatherData(
-                            time = LocalDateTime.now(),
-                            temperatureCelsius = 29.0,
-                            pressure = 720.0,
-                            windSpeed = 12.0,
-                            humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(65)
-                        ),
-                        WeatherData(
-                            time = LocalDateTime.now(),
-                            temperatureCelsius = 31.0,
-                            pressure = 720.0,
-                            windSpeed = 12.0,
-                            humidity = 32.0,
-                            weatherType = WeatherType.fromWeatherCode(99)
+        AppTheme {
+            HomeContent(
+                weatherInfo =
+                WeatherInfo(
+                    weatherDataPerDay = mapOf(
+                        0 to listOf(
+                            WeatherData(
+                                time = LocalDateTime.now(),
+                                temperatureCelsius = 32.0,
+                                pressure = 720.0,
+                                windSpeed = 12.0,
+                                humidity = 32.0,
+                                weatherType = WeatherType.fromWeatherCode(0)
+                            ),
+                            WeatherData(
+                                time = LocalDateTime.now(),
+                                temperatureCelsius = 25.0,
+                                pressure = 720.0,
+                                windSpeed = 12.0,
+                                humidity = 32.0,
+                                weatherType = WeatherType.fromWeatherCode(77)
+                            ),
+                            WeatherData(
+                                time = LocalDateTime.now(),
+                                temperatureCelsius = 27.0,
+                                pressure = 720.0,
+                                windSpeed = 12.0,
+                                humidity = 32.0,
+                                weatherType = WeatherType.fromWeatherCode(57)
+                            ),
+                            WeatherData(
+                                time = LocalDateTime.now(),
+                                temperatureCelsius = 29.0,
+                                pressure = 720.0,
+                                windSpeed = 12.0,
+                                humidity = 32.0,
+                                weatherType = WeatherType.fromWeatherCode(65)
+                            ),
+                            WeatherData(
+                                time = LocalDateTime.now(),
+                                temperatureCelsius = 31.0,
+                                pressure = 720.0,
+                                windSpeed = 12.0,
+                                humidity = 32.0,
+                                weatherType = WeatherType.fromWeatherCode(99)
+                            )
                         )
+                    ),
+                    currentWeatherData = WeatherData(
+                        time = LocalDateTime.now(),
+                        temperatureCelsius = 25.0,
+                        pressure = 720.0,
+                        windSpeed = 12.0,
+                        humidity = 32.0,
+                        weatherType = WeatherType.fromWeatherCode(99)
                     )
                 ),
-                currentWeatherData = WeatherData(
-                    time = LocalDateTime.now(),
-                    temperatureCelsius = 25.0,
-                    pressure = 720.0,
-                    windSpeed = 12.0,
-                    humidity = 32.0,
-                    weatherType = WeatherType.fromWeatherCode(99)
-                )
-            ),
-            location = "Pune"
-        )
+                location = "Pune"
+            )
+        }
     }
 
     @Preview
