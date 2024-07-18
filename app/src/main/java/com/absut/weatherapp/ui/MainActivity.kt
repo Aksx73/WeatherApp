@@ -2,6 +2,7 @@ package com.absut.weatherapp.ui
 
 import android.Manifest
 import android.app.ActionBar
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,7 +42,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
+import androidx.compose.material.icons.outlined.Loop
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -59,6 +63,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -214,7 +219,7 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     },
-                    icon = { Icon(Icons.Filled.Air, null) },
+                    icon = { Icon(Icons.Outlined.Loop, null) },
                     text = { Text(text = "Refresh") },
                 )
             },
@@ -224,26 +229,38 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues) // Apply padding to avoid overlap with FAB
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
+
             ) {
                 WeatherCard(data = weatherInfo.currentWeatherData, location = location)
 
                 Text(
-                    text = "Today | ${
+                    /*text = "Today | ${
                         weatherInfo.currentWeatherData?.time?.format(
                             DateTimeFormatter.ofPattern(
                                 "d MMMM"
                             )
                         )
-                    }",
+                    }",*/
+                    text ="Hourly forecast" ,
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.titleMedium
                 )
 
-                LazyRow(
-                    contentPadding = PaddingValues(vertical = 12.dp, horizontal = 8.dp)
+                Spacer(modifier = Modifier.size(8.dp))
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    shape = MaterialTheme.shapes.small,
+                    color = MaterialTheme.colorScheme.surface
                 ) {
-                    items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
-                        WeatherListItem(item = it)
+                    LazyRow(
+                        contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
+                    ) {
+                        items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
+                            WeatherListItem(item = it)
+                        }
                     }
                 }
             }
@@ -254,7 +271,10 @@ class MainActivity : ComponentActivity() {
     fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?,location: String?) {
         Card(
             onClick = { /*TODO*/ },
-            modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp)
+            modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
         ) {
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
@@ -286,8 +306,9 @@ class MainActivity : ComponentActivity() {
                 Text(
                     text = "${data?.temperatureCelsius?.roundToInt()}°",
                     style = MaterialTheme.typography.displayMedium,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    //color = colorResource(id = android.R.attr.textColorPrimary),
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 Spacer(
                     modifier = Modifier.height(8.dp),
@@ -344,17 +365,18 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
-        Column(modifier = modifier.padding(8.dp)) {
+        Column(modifier = modifier.padding(16.dp)) {
             Text(
                 text = "${item.temperatureCelsius.roundToInt()}°",
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.size(6.dp))
             Image(
                 painter = painterResource(id = item.weatherType.iconRes),
                 contentDescription = "weather icon",
-                Modifier.size(50.dp)
+                Modifier.size(36.dp)
             )
             Spacer(modifier = Modifier.size(6.dp))
             Text(
