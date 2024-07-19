@@ -205,7 +205,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo, location: String?) {
         Scaffold(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .statusBarsPadding()
                 .navigationBarsPadding(),
@@ -304,7 +304,7 @@ class MainActivity : ComponentActivity() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "${data?.temperatureCelsius?.roundToInt()}°",
+                    text = "${data.temperatureCelsius.roundToInt()}°",
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -314,7 +314,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.height(8.dp),
                 )
                 Text(
-                    text = data?.weatherType?.weatherDesc ?: "Unknown",
+                    text = data.weatherType.weatherDesc ?: "Unknown",
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = 20.sp,
                     //color = colorResource(id = android.R.attr.textColorPrimary),
@@ -327,17 +327,17 @@ class MainActivity : ComponentActivity() {
                 ) {
                     TextWithStartImage(
                         icon = R.drawable.ic_water_black_24dp,
-                        text = "${data?.pressure?.roundToInt()} hpa",
+                        text = "${data.pressure.roundToInt()} hpa",
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                     TextWithStartImage(
                         icon = R.drawable.ic_water_drop_black_24dp,
-                        text = "${data?.humidity?.roundToInt()} %",
+                        text = "${data.humidity.roundToInt()} %",
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                     TextWithStartImage(
                         icon = R.drawable.ic_air_black_24dp,
-                        text = "${data?.windSpeed?.roundToInt()} km/h",
+                        text = "${data.windSpeed.roundToInt()} km/h",
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                 }
