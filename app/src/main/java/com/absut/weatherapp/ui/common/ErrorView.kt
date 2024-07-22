@@ -1,7 +1,9 @@
 package com.absut.isro.archive.ui.common
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -18,13 +20,18 @@ fun ErrorView(
     buttonText: String? = null,
     onButtonClick: () -> Unit
 ) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Text(text = text ?: "Something went wrong", style = MaterialTheme.typography.bodyMedium)
-        Button(onClick = onButtonClick, modifier = Modifier.padding(top = 16.dp)) {
-            Text(text = buttonText ?: "Try again")
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = text ?: "Something went wrong", style = MaterialTheme.typography.bodyMedium)
+            Button(onClick = onButtonClick, modifier = Modifier.padding(top = 16.dp)) {
+                Text(text = buttonText ?: "Try again")
+            }
         }
     }
 }
