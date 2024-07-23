@@ -183,20 +183,25 @@ class MainActivity : ComponentActivity() {
         val uiState by viewModel.uiState.observeAsState(WeatherUIState.Loading)
         val locationName by viewModel.locality.observeAsState("Locating..")
 
-        when (uiState) {
-            is WeatherUIState.Error -> {
-                ErrorView(text = (uiState as WeatherUIState.Error).msg) {
-                    viewModel.loadWeatherInfo()
+        Surface(
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            when (uiState) {
+                is WeatherUIState.Error -> {
+                    ErrorView(text = (uiState as WeatherUIState.Error).msg) {
+                        viewModel.loadWeatherInfo()
+                    }
                 }
-            }
 
-            WeatherUIState.Loading -> {
-                ProgressView()
-            }
+                WeatherUIState.Loading -> {
+                    ProgressView()
+                }
 
-            is WeatherUIState.Success -> {
-                (uiState as WeatherUIState.Success).weatherInfo?.let {
-                    HomeContent(weatherInfo = it, location = locationName)
+                is WeatherUIState.Success -> {
+                    (uiState as WeatherUIState.Success).weatherInfo?.let {
+                        HomeContent(weatherInfo = it, location = locationName)
+                    }
                 }
             }
         }
