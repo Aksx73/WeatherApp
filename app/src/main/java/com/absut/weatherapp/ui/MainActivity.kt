@@ -87,6 +87,7 @@ class MainActivity : ComponentActivity() {
 
     //private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<WeatherViewModel>()
+
     //private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
