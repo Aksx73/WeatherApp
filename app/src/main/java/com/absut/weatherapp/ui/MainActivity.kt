@@ -119,11 +119,11 @@ class MainActivity : ComponentActivity() {
             )
         )
 
-       /* weatherAdapter = WeatherAdapter()
-        binding.content.recyclerView.adapter = weatherAdapter
-        binding.content.recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.content.recyclerView.setHasFixedSize(true)*/
+        /* weatherAdapter = WeatherAdapter()
+         binding.content.recyclerView.adapter = weatherAdapter
+         binding.content.recyclerView.layoutManager =
+             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+         binding.content.recyclerView.setHasFixedSize(true)*/
 
         /*viewModel.uiState.observe(this) { state ->
             binding.errorState.isVisible = state == WeatherUIState.Error()
@@ -156,28 +156,28 @@ class MainActivity : ComponentActivity() {
         }*/
     }
 
-   /* private fun bind(weatherInfo: WeatherInfo?) {
-        weatherInfo?.currentWeatherData?.let { data ->
-            binding.content.apply {
-                //  txtLocation.text = data.
-                image.setImageResource(data.weatherType.iconRes)
-                txtTime.text =
-                    "Today, ${data.time.format(DateTimeFormatter.ofPattern("h a"))}"  //value -> Today, 2 pm
-                txtTemp.text = "${data.temperatureCelsius.roundToInt()}°" // value -> 25°
-                txtWeatherType.text = data.weatherType.weatherDesc
-                txtHumidity.text = "${data.humidity.roundToInt()} %"
-                txtPressure.text = "${data.pressure.roundToInt()} hpa"
-                txtWind.text = "${data.windSpeed.roundToInt()} km/h"
-                binding.content.txtToday.text =
-                    "Today | ${data.time.format(DateTimeFormatter.ofPattern("d MMMM"))}"
-            }
-        }
+    /* private fun bind(weatherInfo: WeatherInfo?) {
+         weatherInfo?.currentWeatherData?.let { data ->
+             binding.content.apply {
+                 //  txtLocation.text = data.
+                 image.setImageResource(data.weatherType.iconRes)
+                 txtTime.text =
+                     "Today, ${data.time.format(DateTimeFormatter.ofPattern("h a"))}"  //value -> Today, 2 pm
+                 txtTemp.text = "${data.temperatureCelsius.roundToInt()}°" // value -> 25°
+                 txtWeatherType.text = data.weatherType.weatherDesc
+                 txtHumidity.text = "${data.humidity.roundToInt()} %"
+                 txtPressure.text = "${data.pressure.roundToInt()} hpa"
+                 txtWind.text = "${data.windSpeed.roundToInt()} km/h"
+                 binding.content.txtToday.text =
+                     "Today | ${data.time.format(DateTimeFormatter.ofPattern("d MMMM"))}"
+             }
+         }
 
-        weatherInfo?.weatherDataPerDay?.get(0)?.let { data ->
-            weatherAdapter.submitList(data)
+         weatherInfo?.weatherDataPerDay?.get(0)?.let { data ->
+             weatherAdapter.submitList(data)
 
-        }
-    }*/
+         }
+     }*/
 
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier) {
@@ -248,7 +248,7 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     }",*/
-                    text ="Hourly forecast" ,
+                    text = "Hourly forecast",
                     modifier = Modifier.padding(horizontal = 16.dp),
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -274,7 +274,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?,location: String?) {
+    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?, location: String?) {
         Card(
             onClick = { /*TODO*/ },
             modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp),
