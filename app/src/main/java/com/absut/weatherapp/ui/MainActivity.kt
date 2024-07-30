@@ -18,6 +18,8 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -83,37 +85,26 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<WeatherViewModel>()
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+       enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val composeView = ComposeView(this).apply {
-            setContent {
-                AppTheme {
-                    HomeScreen()
-                }
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { viewModel.loadWeatherInfo() }
+        permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+
+        setContent {
+            AppTheme {
+                HomeScreen()
             }
         }
 
-        setContentView(composeView, ActionBar.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
 
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                viewModel.loadWeatherInfo()
-            }
-
-        permissionLauncher.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
     }
 
     @Composable
