@@ -1,4 +1,5 @@
 package com.example.compose
+
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -16,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.example.ui.theme.Typography
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
@@ -80,24 +82,40 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable() () -> Unit
 ) {
-  val colorScheme = when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-          val context = LocalContext.current
-          if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
-      
-      darkTheme -> DarkColorScheme
-      else -> LightColorScheme
-  }
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
 
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = Typography,
-    content = content
-  )
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+
+    /*val systemUiController = rememberSystemUiController()
+    if (darkTheme) {
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent
+        )
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent
+        )
+    } else {
+        systemUiController.setSystemBarsColor(
+            color = Color.White
+        )
+        systemUiController.setNavigationBarColor(
+            color = Color.White
+        )
+    }*/
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
 }
 
