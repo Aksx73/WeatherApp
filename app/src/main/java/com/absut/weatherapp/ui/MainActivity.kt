@@ -315,6 +315,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Preview
+    @Composable
+    private fun WeatherListItemPreview() {
+        Surface {
+            WeatherListItem(
+                item =
+                WeatherData(
+                    time = LocalDateTime.now(),
+                    temperatureCelsius = 25.0,
+                    pressure = 720.0,
+                    windSpeed = 12.0,
+                    humidity = 32.0,
+                    weatherType = WeatherType.fromWeatherCode(0)
+                )
+            )
+        }
+    }
+
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
     @Composable
     private fun HomeSContentPreview() {
