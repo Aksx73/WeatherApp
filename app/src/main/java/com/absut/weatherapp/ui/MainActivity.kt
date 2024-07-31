@@ -1,29 +1,15 @@
 package com.absut.weatherapp.ui
 
 import android.Manifest
-import android.app.ActionBar
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,17 +25,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.outlined.Loop
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -60,21 +43,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.ui.common.ErrorView
 import com.absut.isro.archive.ui.common.ProgressView
 import com.absut.weatherapp.R
-import com.absut.weatherapp.databinding.ActivityMainBinding
 import com.absut.weatherapp.domain.model.WeatherData
 import com.absut.weatherapp.domain.model.WeatherInfo
 import com.absut.weatherapp.domain.util.WeatherType
@@ -103,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                 HomeScreen()
             }
         }
-
 
     }
 
@@ -403,22 +379,5 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
-    @Preview
-    @Composable
-    private fun WeatherListItemPreview() {
-        Surface {
-            WeatherListItem(
-                item =
-                WeatherData(
-                    time = LocalDateTime.now(),
-                    temperatureCelsius = 25.0,
-                    pressure = 720.0,
-                    windSpeed = 12.0,
-                    humidity = 32.0,
-                    weatherType = WeatherType.fromWeatherCode(0)
-                )
-            )
-        }
-    }
+    
 }
