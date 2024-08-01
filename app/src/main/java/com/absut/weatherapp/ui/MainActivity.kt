@@ -120,6 +120,12 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun HomeContent(modifier: Modifier = Modifier, weatherInfo: WeatherInfo, location: String?) {
+        val cardBackgroundColor: Color = if (isSystemInDarkTheme()) {
+            MaterialTheme.colorScheme.surfaceContainerHighest
+        } else {
+            MaterialTheme.colorScheme.surfaceContainer
+        }
+
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
@@ -169,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                     shape = MaterialTheme.shapes.small,
-                    color = MaterialTheme.colorScheme.surface
+                    color = cardBackgroundColor
                 ) {
                     LazyRow(
                         contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
