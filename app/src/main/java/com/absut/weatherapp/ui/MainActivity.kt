@@ -191,11 +191,18 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?, location: String?) {
+
+        val cardBackgroundColor: Color = if (isSystemInDarkTheme()) {
+            MaterialTheme.colorScheme.surfaceContainerHighest
+        } else {
+            MaterialTheme.colorScheme.surfaceContainer
+        }
+
         Card(
             onClick = { /*TODO*/ },
             modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
+            colors = CardDefaults.cardColors().copy(
+                containerColor = cardBackgroundColor
             )
         ) {
             Column(
