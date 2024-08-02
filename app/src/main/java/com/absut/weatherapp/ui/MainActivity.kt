@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                     shape = MaterialTheme.shapes.small,
-                    color = cardBackgroundColor
+                    color = MaterialTheme.colorScheme.surfaceContainer
                 ) {
                     LazyRow(
                         contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
             onClick = { /*TODO*/ },
             modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp),
             colors = CardDefaults.cardColors().copy(
-                containerColor = cardBackgroundColor
+                containerColor = MaterialTheme.colorScheme.surfaceContainer
             )
         ) {
             Column(
