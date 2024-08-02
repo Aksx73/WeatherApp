@@ -166,7 +166,11 @@ class MainActivity : AppCompatActivity() {
                             )
                         )
                     }",*/
-                    text = "Hourly forecast",
+                    text = "Hourly forecast | Today | ${
+                        weatherInfo.currentWeatherData?.time?.format(
+                            DateTimeFormatter.ofPattern("d MMMM")
+                        )
+                    }",
                     modifier = Modifier.padding(horizontal = 16.dp),
                     style = MaterialTheme.typography.titleMedium
                 )
