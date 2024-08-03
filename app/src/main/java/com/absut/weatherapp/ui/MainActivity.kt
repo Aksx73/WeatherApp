@@ -418,7 +418,7 @@ class MainActivity : AppCompatActivity() {
                         weatherType = WeatherType.fromWeatherCode(99)
                     )
                 ),
-                location = "Pune"
+                location = "Manchar"
             )
         }
     }
