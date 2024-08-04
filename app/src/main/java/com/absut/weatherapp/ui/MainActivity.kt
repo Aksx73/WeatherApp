@@ -159,13 +159,6 @@ class MainActivity : AppCompatActivity() {
                 WeatherCard(data = weatherInfo.currentWeatherData, location = location)
 
                 Text(
-                    /*text = "Today | ${
-                        weatherInfo.currentWeatherData?.time?.format(
-                            DateTimeFormatter.ofPattern(
-                                "d MMMM"
-                            )
-                        )
-                    }",*/
                     text = "Hourly forecast | Today | ${
                         weatherInfo.currentWeatherData?.time?.format(
                             DateTimeFormatter.ofPattern("d MMMM")
