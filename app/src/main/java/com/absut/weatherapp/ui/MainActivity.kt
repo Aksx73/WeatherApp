@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity() {
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.size(12.dp))
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
