@@ -57,6 +57,9 @@ import com.absut.weatherapp.R
 import com.absut.weatherapp.domain.model.WeatherData
 import com.absut.weatherapp.domain.model.WeatherInfo
 import com.absut.weatherapp.domain.util.WeatherType
+import com.absut.weatherapp.ui.components.TextWithStartImage
+import com.absut.weatherapp.ui.components.WeatherCard
+import com.absut.weatherapp.ui.components.WeatherListItem
 import com.example.compose.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
@@ -156,7 +159,9 @@ class MainActivity : AppCompatActivity() {
                     .background(MaterialTheme.colorScheme.surface)
 
             ) {
-                WeatherCard(data = weatherInfo.currentWeatherData, location = location)
+                WeatherCard(data = weatherInfo.currentWeatherData, location = location){
+                    //todo on click
+                }
 
                 Text(
                     text = "Hourly forecast | Today | ${
@@ -188,170 +193,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Composable
-    fun WeatherCard(modifier: Modifier = Modifier, data: WeatherData?, location: String?) {
 
-        val cardBackgroundColor: Color = if (isSystemInDarkTheme()) {
-            MaterialTheme.colorScheme.surfaceContainerHighest
-        } else {
-            MaterialTheme.colorScheme.surfaceContainer
-        }
-
-        Card(
-            onClick = { /*TODO*/ },
-            modifier = modifier.padding(horizontal = 16.dp, vertical = 24.dp),
-            colors = CardDefaults.cardColors().copy(
-                containerColor = cardBackgroundColor
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextWithStartImage(
-                        icon = R.drawable.ic_place_black_24dp,
-                        text = location ?: "Unknown",
-                        textStyle = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "Today, ${data?.time?.format(DateTimeFormatter.ofPattern("h a"))}",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                Image(
-                    painter = painterResource(id = data?.weatherType?.iconRes!!),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(120.dp)
-                        .align(Alignment.CenterHorizontally)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "${data.temperatureCelsius.roundToInt()}°",
-                    style = MaterialTheme.typography.displayMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    //color = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
-                Spacer(
-                    modifier = Modifier.height(8.dp),
-                )
-                Text(
-                    text = data.weatherType.weatherDesc ?: "Unknown",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontSize = 20.sp,
-                    //color = colorResource(id = android.R.attr.textColorPrimary),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    TextWithStartImage(
-                        icon = R.drawable.ic_water_black_24dp,
-                        text = "${data.pressure.roundToInt()} hpa",
-                        textStyle = MaterialTheme.typography.bodyMedium
-                    )
-                    TextWithStartImage(
-                        icon = R.drawable.ic_water_drop_black_24dp,
-                        text = "${data.humidity.roundToInt()} %",
-                        textStyle = MaterialTheme.typography.bodyMedium
-                    )
-                    TextWithStartImage(
-                        icon = R.drawable.ic_air_black_24dp,
-                        text = "${data.windSpeed.roundToInt()} km/h",
-                        textStyle = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-
-    }
-
-    @Composable
-    fun TextWithStartImage(
-        @DrawableRes icon: Int,
-        text: String,
-        textStyle: TextStyle
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(6.dp)) // Add spacing if needed
-            Text(text = text, style = textStyle)
-        }
-    }
-
-    @Composable
-    fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
-        Column(modifier = modifier.padding(16.dp)) {
-            Text(
-                text = "${item.temperatureCelsius.roundToInt()}°",
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.size(6.dp))
-            Image(
-                painter = painterResource(id = item.weatherType.iconRes),
-                contentDescription = "weather icon",
-                Modifier.size(36.dp)
-            )
-            Spacer(modifier = Modifier.size(6.dp))
-            Text(
-                text = item.time.format(DateTimeFormatter.ofPattern("h a")),
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-
-    @Preview
-    @Composable
-    private fun WeatherCardPreview() {
-        WeatherCard(data = null, location = null)
-    }
-
-    @Preview
-    @Composable
-    private fun TextWithStartImagePreview() {
-        Surface {
-            TextWithStartImage(
-                icon = R.drawable.ic_place_black_24dp,
-                text = "Manchar",
-                textStyle = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-
-    @Preview
-    @Composable
-    private fun WeatherListItemPreview() {
-        Surface {
-            WeatherListItem(
-                item =
-                WeatherData(
-                    time = LocalDateTime.now(),
-                    temperatureCelsius = 25.0,
-                    pressure = 720.0,
-                    windSpeed = 12.0,
-                    humidity = 32.0,
-                    weatherType = WeatherType.fromWeatherCode(0)
-                )
-            )
-        }
-    }
 
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
     @Composable
     private fun HomeSContentPreview() {
         AppTheme {
