@@ -51,8 +51,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.absut.isro.archive.ui.common.ErrorView
-import com.absut.isro.archive.ui.common.ProgressView
+import com.absut.weatherapp.ui.components.ErrorView
+import com.absut.weatherapp.ui.components.ProgressView
 import com.absut.weatherapp.R
 import com.absut.weatherapp.domain.model.WeatherData
 import com.absut.weatherapp.domain.model.WeatherInfo

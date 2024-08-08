@@ -1,4 +1,4 @@
-package com.absut.isro.archive.ui.common
+package com.absut.weatherapp.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
