@@ -1,19 +1,19 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk= 34
     namespace= "com.absut.weatherapp"
+    compileSdk= libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId ="com.absut.weatherapp"
-        minSdk =26
-        targetSdk =34
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode =1
         versionName= "1.0"
 
@@ -32,7 +32,7 @@ android {
         targetCompatibility =JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     composeCompiler {
         enableStrongSkippingMode = true
@@ -49,41 +49,37 @@ android {
 }
 
 dependencies {
-    implementation ("androidx.core:core-ktx:1.13.1")
-    implementation ("androidx.appcompat:appcompat:1.7.0")
-    implementation ("com.google.android.material:material:1.12.0")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation(libs.androidx.core.ktx)
+    implementation (libs.material)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
 
     //compose
-    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
-    implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
-    implementation ("androidx.compose.material:material-icons-extended")
-    implementation ("androidx.compose.ui:ui-tooling-preview")
-    implementation ("androidx.compose.runtime:runtime-livedata")
-    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
-    implementation ("androidx.activity:activity-compose:1.9.1")
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material3)
+    implementation (libs.androidx.material.icons.extended)
+    implementation (libs.androidx.ui.tooling.preview)
+    implementation (libs.androidx.runtime.livedata)
+    implementation (libs.androidx.activity.compose)
+    implementation (libs.accompanist.systemuicontroller)
 
     //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.51.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
     // Location Services
-    implementation ("com.google.android.gms:play-services-location:21.3.0")
+    implementation (libs.play.services.location)
 
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+    implementation (libs.retrofit.core)
+    implementation (libs.retrofit.converter.moshi)
+    implementation (libs.okhttp3.logging.interceptor)
 
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4")
-    debugImplementation ("androidx.compose.ui:ui-tooling")
-    androidTestImplementation(composeBom)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
 }
