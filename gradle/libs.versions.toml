@@ -1,0 +1,64 @@
+[versions]
+activityCompose = "1.9.1"
+coreKtx  = "1.13.1"
+kotlin = "2.0.10"
+agp = "8.4.2"
+material = "1.12.0"
+navigationFragmentKtx = "2.7.7"
+hilt = "2.51.1"
+ksp = "2.0.0-1.0.22"
+composeBom = "2024.06.00"
+playServicesLocation = "21.3.0"
+retrofit = "2.9.0"
+okhttp3 = "5.0.0-alpha.3"
+accompanistSystemuicontroller = "0.27.0"
+espressoCore = "3.6.1"
+junitVersion = "1.2.1"
+junit = "4.13.2"
+
+# project configs
+compileSdk = "34"
+minSdk = "26"
+targetSdk = "34"
+jvmTarget = "1.8"
+
+[libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
+
+# Testing
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+
+
+
