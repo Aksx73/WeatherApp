@@ -23,9 +23,10 @@ import kotlin.math.roundToInt
 fun TextWithStartImage(
     @DrawableRes icon: Int,
     text: String,
-    textStyle: TextStyle
+    textStyle: TextStyle,
+    modifier: Modifier = Modifier
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,
