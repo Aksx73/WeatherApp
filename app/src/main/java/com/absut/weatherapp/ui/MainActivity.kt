@@ -14,6 +14,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         Surface(
             modifier = modifier,
-            color = MaterialTheme.colorScheme.surface
+            color = MaterialTheme.colorScheme.surfaceContainer
         ) {
             when (uiState) {
                 is WeatherUIState.Error -> {
@@ -135,8 +136,7 @@ class MainActivity : AppCompatActivity() {
             modifier = modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .navigationBarsPadding()
-                .background(MaterialTheme.colorScheme.surfaceContainer),
+                .navigationBarsPadding(),
             floatingActionButton = {
                 ExtendedFloatingActionButton(
                     onClick = {
@@ -153,102 +153,105 @@ class MainActivity : AppCompatActivity() {
             },
             floatingActionButtonPosition = FabPosition.Center
         ) { paddingValues -> // paddingValues are provided by Scaffold to handle FAB placement
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues) // Apply padding to avoid overlap with FAB
-                    .padding(24.dp)
-            ) {
-                Text(
-                    text = "${
-                        weatherInfo.currentWeatherData?.time?.format(
-                            DateTimeFormatter.ofPattern("d MMMM")
-                        )
-                    }",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Spacer(modifier = Modifier.size(6.dp))
-                Text(
-                    text = location ?: "Unknown",
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Normal
-                )
-                Spacer(modifier = Modifier.size(6.dp))
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "${weatherInfo.currentWeatherData?.temperatureCelsius?.roundToInt()}°",
-                        style = MaterialTheme.typography.displayLarge,
-                        fontSize = 64.sp,
-                        fontWeight = FontWeight.Black
-                    )
-                    Spacer(modifier = Modifier.size(16.dp))
-                    Image(
-                        painter = painterResource(id = weatherInfo.currentWeatherData?.weatherType?.iconRes!!),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(74.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.size(6.dp))
-                Text(
-                    text = weatherInfo.currentWeatherData?.weatherType?.weatherDesc ?: "Unknown",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Spacer(modifier = Modifier.size(24.dp))
-                Surface(
+            Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    shape = MaterialTheme.shapes.large,
-                    color = cardBackgroundColor
+                        .fillMaxSize()
+                        .padding(paddingValues) // Apply padding to avoid overlap with FAB
+                        .padding(24.dp)
                 ) {
-                    Column {
-                        TextWithStartImage(
-                            icon = R.drawable.ic_clock_24,
-                            text = "Hourly forecast",
-                            textStyle = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.padding(start = 24.dp, top = 16.dp)
+                    Text(
+                        text = "${
+                            weatherInfo.currentWeatherData?.time?.format(
+                                DateTimeFormatter.ofPattern("d MMMM")
+                            )
+                        }",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.size(6.dp))
+                    Text(
+                        text = location ?: "Unknown",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Normal
+                    )
+                    Spacer(modifier = Modifier.size(6.dp))
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "${weatherInfo.currentWeatherData?.temperatureCelsius?.roundToInt()}°",
+                            style = MaterialTheme.typography.displayLarge,
+                            fontSize = 64.sp,
+                            fontWeight = FontWeight.Black
                         )
+                        Spacer(modifier = Modifier.size(16.dp))
+                        Image(
+                            painter = painterResource(id = weatherInfo.currentWeatherData?.weatherType?.iconRes!!),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(74.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(6.dp))
+                    Text(
+                        text = weatherInfo.currentWeatherData?.weatherType?.weatherDesc
+                            ?: "Unknown",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.size(24.dp))
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        shape = MaterialTheme.shapes.extraLarge,
+                        color = MaterialTheme.colorScheme.surface
+                    ) {
+                        Column {
+                            TextWithStartImage(
+                                icon = R.drawable.ic_clock_24,
+                                text = "Hourly forecast",
+                                textStyle = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier.padding(start = 24.dp, top = 16.dp)
+                            )
+                            LazyRow(
+                                contentPadding = PaddingValues(vertical = 4.dp, horizontal = 4.dp)
+                            ) {
+                                items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
+                                    WeatherListItem(item = it)
+                                }
+                            }
+                        }
+                    }
+
+
+                    /*WeatherCard(data = weatherInfo.currentWeatherData, location = location){
+                        //todo on click
+                    }
+    
+                    Text(
+                        text = "Hourly forecast | Today | ${
+                            weatherInfo.currentWeatherData?.time?.format(
+                                DateTimeFormatter.ofPattern("d MMMM")
+                            )
+                        }",
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+    
+                    Spacer(modifier = Modifier.size(12.dp))
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        shape = MaterialTheme.shapes.small,
+                        color = cardBackgroundColor
+                    ) {
                         LazyRow(
-                            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 4.dp)
+                            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
                         ) {
                             items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
                                 WeatherListItem(item = it)
                             }
                         }
-                    }
+                    }*/
                 }
-
-
-                /*WeatherCard(data = weatherInfo.currentWeatherData, location = location){
-                    //todo on click
-                }
-
-                Text(
-                    text = "Hourly forecast | Today | ${
-                        weatherInfo.currentWeatherData?.time?.format(
-                            DateTimeFormatter.ofPattern("d MMMM")
-                        )
-                    }",
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(modifier = Modifier.size(12.dp))
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    shape = MaterialTheme.shapes.small,
-                    color = cardBackgroundColor
-                ) {
-                    LazyRow(
-                        contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
-                    ) {
-                        items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
-                            WeatherListItem(item = it)
-                        }
-                    }
-                }*/
             }
         }
     }
