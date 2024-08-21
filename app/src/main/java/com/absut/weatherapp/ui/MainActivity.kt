@@ -135,7 +135,8 @@ class MainActivity : AppCompatActivity() {
             modifier = modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .navigationBarsPadding(),
+                .navigationBarsPadding()
+                .background(MaterialTheme.colorScheme.surfaceContainer),
             floatingActionButton = {
                 ExtendedFloatingActionButton(
                     onClick = {
@@ -156,10 +157,69 @@ class MainActivity : AppCompatActivity() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues) // Apply padding to avoid overlap with FAB
-                    .background(MaterialTheme.colorScheme.surface)
-
+                    .padding(24.dp)
             ) {
-                WeatherCard(data = weatherInfo.currentWeatherData, location = location){
+                Text(
+                    text = "${
+                        weatherInfo.currentWeatherData?.time?.format(
+                            DateTimeFormatter.ofPattern("d MMMM")
+                        )
+                    }",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(modifier = Modifier.size(6.dp))
+                Text(
+                    text = location ?: "Unknown",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Normal
+                )
+                Spacer(modifier = Modifier.size(6.dp))
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "${weatherInfo.currentWeatherData?.temperatureCelsius?.roundToInt()}°",
+                        style = MaterialTheme.typography.displayLarge,
+                        fontSize = 64.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                    Spacer(modifier = Modifier.size(16.dp))
+                    Image(
+                        painter = painterResource(id = weatherInfo.currentWeatherData?.weatherType?.iconRes!!),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(74.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.size(6.dp))
+                Text(
+                    text = weatherInfo.currentWeatherData?.weatherType?.weatherDesc ?: "Unknown",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(modifier = Modifier.size(24.dp))
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    shape = MaterialTheme.shapes.large,
+                    color = cardBackgroundColor
+                ) {
+                    Column {
+                        TextWithStartImage(
+                            icon = R.drawable.ic_clock_24,
+                            text = "Hourly forecast",
+                            textStyle = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(start = 24.dp, top = 16.dp)
+                        )
+                        LazyRow(
+                            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 4.dp)
+                        ) {
+                            items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
+                                WeatherListItem(item = it)
+                            }
+                        }
+                    }
+                }
+
+
+                /*WeatherCard(data = weatherInfo.currentWeatherData, location = location){
                     //todo on click
                 }
 
@@ -188,17 +248,16 @@ class MainActivity : AppCompatActivity() {
                             WeatherListItem(item = it)
                         }
                     }
-                }
+                }*/
             }
         }
     }
 
 
-
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
     @Composable
-    private fun HomeSContentPreview() {
+    private fun HomeScreenContentPreview() {
         AppTheme {
             HomeContent(
                 weatherInfo =
