@@ -95,22 +95,22 @@ fun AppTheme(
         else -> LightColorScheme
     }
 
-    /*val systemUiController = rememberSystemUiController()
+    val systemUiController = rememberSystemUiController()
     if (darkTheme) {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent
         )
-        systemUiController.setSystemBarsColor(
+        systemUiController.setNavigationBarColor(
             color = Color.Transparent
         )
     } else {
         systemUiController.setSystemBarsColor(
-            color = Color.White
+            color = MaterialTheme.colorScheme.surfaceContainer
         )
         systemUiController.setNavigationBarColor(
-            color = Color.White
+            color = MaterialTheme.colorScheme.surfaceContainer
         )
-    }*/
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
