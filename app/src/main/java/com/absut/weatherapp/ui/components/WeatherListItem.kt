@@ -23,7 +23,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun WeatherListItem(modifier: Modifier = Modifier, item: WeatherData) {
-    Column(modifier = modifier.padding(16.dp)) {
+    Column(modifier = modifier.padding(12.dp)) {
         Text(
             text = "${item.temperatureCelsius.roundToInt()}°",
             modifier = Modifier.align(Alignment.CenterHorizontally),
