@@ -59,6 +59,7 @@ import com.absut.weatherapp.domain.model.WeatherData
 import com.absut.weatherapp.domain.model.WeatherInfo
 import com.absut.weatherapp.domain.util.WeatherType
 import com.absut.weatherapp.ui.components.TextWithStartImage
+import com.absut.weatherapp.ui.components.WaveView
 import com.absut.weatherapp.ui.components.WeatherCard
 import com.absut.weatherapp.ui.components.WeatherListItem
 import com.example.compose.AppTheme
@@ -179,7 +180,7 @@ class MainActivity : AppCompatActivity() {
                         Text(
                             text = "${weatherInfo.currentWeatherData?.temperatureCelsius?.roundToInt()}°",
                             style = MaterialTheme.typography.displayLarge,
-                            fontSize = 64.sp,
+                            fontSize = 72.sp,
                             fontWeight = FontWeight.Black
                         )
                         Spacer(modifier = Modifier.size(16.dp))
@@ -187,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                             painter = painterResource(id = weatherInfo.currentWeatherData?.weatherType?.iconRes!!),
                             contentDescription = null,
                             modifier = Modifier
-                                .size(74.dp)
+                                .size(78.dp)
                         )
                     }
                     Spacer(modifier = Modifier.size(6.dp))
@@ -196,7 +197,7 @@ class MainActivity : AppCompatActivity() {
                             ?: "Unknown",
                         style = MaterialTheme.typography.titleMedium
                     )
-                    Spacer(modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.size(20.dp))
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -211,13 +212,145 @@ class MainActivity : AppCompatActivity() {
                                 modifier = Modifier.padding(start = 24.dp, top = 16.dp)
                             )
                             LazyRow(
-                                contentPadding = PaddingValues(vertical = 4.dp, horizontal = 4.dp)
+                                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 10.dp)
                             ) {
                                 items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
                                     WeatherListItem(item = it)
                                 }
                             }
                         }
+                    }
+                    Spacer(modifier = Modifier.size(16.dp))
+                    Row {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .padding(end = 8.dp),
+                            shape = MaterialTheme.shapes.extraLarge,
+                            color = MaterialTheme.colorScheme.surface,
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TextWithStartImage(
+                                    icon = R.drawable.ic_water_black_24dp,
+                                    text = "Pressure",
+                                    textStyle = MaterialTheme.typography.titleMedium,
+                                    modifier = Modifier
+                                        .align(Alignment.Start)
+                                        .padding(top = 16.dp, start = 16.dp)
+                                )
+                                Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                                    Text(
+                                        text = weatherInfo.currentWeatherData?.pressure?.roundToInt()
+                                            .toString(),
+                                        style = MaterialTheme.typography.displayMedium,
+                                        modifier = Modifier.alignByBaseline(),
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                    Text(
+                                        text = "hpa",
+                                        style = MaterialTheme.typography.titleLarge,
+                                        modifier = Modifier
+                                            .alignByBaseline()
+                                            .padding(start = 8.dp)
+                                    )
+
+                                }
+                            }
+                        }
+
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .padding(start = 8.dp),
+                            shape = MaterialTheme.shapes.extraLarge,
+                            color = MaterialTheme.colorScheme.surface,
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TextWithStartImage(
+                                    icon = R.drawable.ic_air_black_24dp,
+                                    text = "Wind",
+                                    textStyle = MaterialTheme.typography.titleMedium,
+                                    modifier = Modifier
+                                        .align(Alignment.Start)
+                                        .padding(top = 16.dp, start = 16.dp)
+                                )
+                                Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                                    Text(
+                                        text = weatherInfo.currentWeatherData?.windSpeed?.roundToInt()
+                                            .toString(),
+                                        style = MaterialTheme.typography.displayMedium,
+                                        modifier = Modifier.alignByBaseline(),
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                    Text(
+                                        text = "km/h",
+                                        style = MaterialTheme.typography.titleLarge,
+                                        modifier = Modifier
+                                            .alignByBaseline()
+                                            .padding(start = 8.dp)
+                                    )
+
+                                }
+                            }
+
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.size(16.dp))
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(end = 8.dp)
+                            .height(150.dp),
+                        shape = MaterialTheme.shapes.extraLarge,
+                        color = MaterialTheme.colorScheme.surface,
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                        ) {
+                            WaveView(
+                                fillPercentage = weatherInfo.currentWeatherData?.humidity?.toFloat()?.div(100) ?: 0f,
+                                color = MaterialTheme.colorScheme.tertiaryContainer,
+                                Modifier.fillMaxSize()
+                            )
+                        }
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            TextWithStartImage(
+                                icon = R.drawable.ic_water_drop_black_24dp,
+                                text = "Humidity",
+                                textStyle = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier
+                                    .align(Alignment.Start)
+                                    .padding(top = 16.dp, start = 16.dp)
+                            )
+                            Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                                Text(
+                                    text = weatherInfo.currentWeatherData?.humidity?.roundToInt()
+                                        .toString(),
+                                    style = MaterialTheme.typography.displayMedium,
+                                    modifier = Modifier.alignByBaseline(),
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Text(
+                                    text = "%",
+                                    style = MaterialTheme.typography.titleLarge,
+                                    modifier = Modifier
+                                        .alignByBaseline()
+                                        .padding(start = 8.dp)
+                                )
+
+                            }
+                        }
+
                     }
 
 
