@@ -29,8 +29,8 @@ fun WaveView(fillPercentage: Float, color: Color, modifier: Modifier = Modifier)
             // Move to the starting point
             moveTo(0f, waveHeight)
 
-            val amplitude = 10f // controls the wave height
-            val frequency = 8 // controls number of waves
+            val amplitude = 8f // controls the wave height
+            val frequency = 10 // controls number of waves
 
             for (x in 0 until width.toInt()) {
                 val y = waveHeight + amplitude * sin((x * frequency * Math.PI / width)).toFloat()
