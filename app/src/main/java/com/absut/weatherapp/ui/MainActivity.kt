@@ -344,38 +344,6 @@ class MainActivity : AppCompatActivity() {
                         }
 
                     }
-
-
-                    /*WeatherCard(data = weatherInfo.currentWeatherData, location = location){
-                        //todo on click
-                    }
-    
-                    Text(
-                        text = "Hourly forecast | Today | ${
-                            weatherInfo.currentWeatherData?.time?.format(
-                                DateTimeFormatter.ofPattern("d MMMM")
-                            )
-                        }",
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleMedium
-                    )
-    
-                    Spacer(modifier = Modifier.size(12.dp))
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        shape = MaterialTheme.shapes.small,
-                        color = cardBackgroundColor
-                    ) {
-                        LazyRow(
-                            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 8.dp)
-                        ) {
-                            items(weatherInfo.weatherDataPerDay[0] ?: emptyList()) {
-                                WeatherListItem(item = it)
-                            }
-                        }
-                    }*/
                 }
             }
         }
