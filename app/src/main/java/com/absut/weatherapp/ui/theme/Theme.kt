@@ -105,10 +105,10 @@ fun AppTheme(
         )
     } else {
         systemUiController.setSystemBarsColor(
-            color = MaterialTheme.colorScheme.surfaceContainer
+            color = Color.Transparent,darkIcons = true
         )
         systemUiController.setNavigationBarColor(
-            color = MaterialTheme.colorScheme.surfaceContainer
+            color = Color.Transparent
         )
     }
 
