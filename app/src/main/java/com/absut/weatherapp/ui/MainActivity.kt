@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -233,7 +234,7 @@ class MainActivity : AppCompatActivity() {
                                         .align(Alignment.Start)
                                         .padding(top = 16.dp, start = 16.dp)
                                 )
-                                Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                                Row(modifier = Modifier.padding(top = 24.dp, bottom = 32.dp)) {
                                     Text(
                                         text = weatherInfo.currentWeatherData?.pressure?.roundToInt()
                                             .toString(),
@@ -272,7 +273,7 @@ class MainActivity : AppCompatActivity() {
                                         .align(Alignment.Start)
                                         .padding(top = 16.dp, start = 16.dp)
                                 )
-                                Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                                Row(modifier = Modifier.padding(top = 24.dp, bottom = 32.dp)) {
                                     Text(
                                         text = weatherInfo.currentWeatherData?.windSpeed?.roundToInt()
                                             .toString(),
@@ -324,7 +325,7 @@ class MainActivity : AppCompatActivity() {
                                     .align(Alignment.Start)
                                     .padding(top = 16.dp, start = 16.dp)
                             )
-                            Row(modifier = Modifier.padding(top = 16.dp, bottom = 32.dp)) {
+                            Row(modifier = Modifier.padding(top = 24.dp, bottom = 32.dp)) {
                                 Text(
                                     text = weatherInfo.currentWeatherData?.humidity?.roundToInt()
                                         .toString(),
