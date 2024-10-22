@@ -26,6 +26,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Loop
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -153,6 +155,7 @@ class MainActivity : AppCompatActivity() {
                         .fillMaxSize()
                         .padding(paddingValues) // Apply padding to avoid overlap with FAB
                         .padding(24.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Text(
                         text = "${
